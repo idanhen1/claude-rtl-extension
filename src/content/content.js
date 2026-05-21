@@ -1,9 +1,11 @@
 const HEBREW_RE = /[\u0590-\u05FF]/;
+const STORAGE_KEY = "claudeRtlEnabled";
+const ENABLED_CLASS = "claude-rtl-helper-enabled";
+const RTL_TEXT_CLASS = "claude-rtl-helper-text";
 
 const MESSAGE_TEXT_SELECTORS = [
   '[data-testid="user-message"]',
   '[data-testid="user-message"] p',
-  '.standard-markdown',
   '.standard-markdown p',
   '.standard-markdown li',
   '.standard-markdown blockquote',
@@ -13,7 +15,6 @@ const MESSAGE_TEXT_SELECTORS = [
   '.standard-markdown h4',
   '.standard-markdown h5',
   '.standard-markdown h6',
-  '.progressive-markdown',
   '.progressive-markdown p',
   '.progressive-markdown li',
   '.progressive-markdown blockquote',
@@ -26,15 +27,14 @@ const MESSAGE_TEXT_SELECTORS = [
   'textarea'
 ];
 
+let isEnabled = true;
+let scheduled = false;
+
 function hasHebrew(text) {
   return HEBREW_RE.test(text || "");
 }
 
 function getElementText(element) {
-  if (!element) {
-    return "";
-  }
-
   if (element instanceof HTMLTextAreaElement || element instanceof HTMLInputElement) {
     return element.value || "";
   }
@@ -44,10 +44,18 @@ function getElementText(element) {
 
 function shouldSkipElement(element) {
   return Boolean(
-    element.closest(
-      'pre, code, svg, button, nav, header, aside, .code-block__code'
-    )
+    element.closest('pre, code, svg, button, nav, header, aside, .code-block__code, [class*="code-block"]')
   );
+}
+
+function removeRtlClasses() {
+  document.querySelectorAll("." + RTL_TEXT_CLASS).forEach((element) => {
+    element.classList.remove(RTL_TEXT_CLASS);
+  });
+}
+
+function setGlobalEnabledState(enabled) {
+  document.documentElement.classList.toggle(ENABLED_CLASS, enabled);
 }
 
 function applyDirectionToElement(element) {
@@ -55,24 +63,29 @@ function applyDirectionToElement(element) {
     return;
   }
 
-  const text = getElementText(element);
+  element.classList.remove(RTL_TEXT_CLASS);
 
-  element.classList.remove("claude-rtl-helper-text");
+  if (!isEnabled) {
+    return;
+  }
 
-  if (hasHebrew(text)) {
-    element.classList.add("claude-rtl-helper-text");
+  if (hasHebrew(getElementText(element))) {
+    element.classList.add(RTL_TEXT_CLASS);
   }
 }
 
 function applyRtlToHebrewMessages() {
-  const elements = document.querySelectorAll(MESSAGE_TEXT_SELECTORS.join(","));
+  setGlobalEnabledState(isEnabled);
 
-  elements.forEach((element) => {
+  if (!isEnabled) {
+    removeRtlClasses();
+    return;
+  }
+
+  document.querySelectorAll(MESSAGE_TEXT_SELECTORS.join(",")).forEach((element) => {
     applyDirectionToElement(element);
   });
 }
-
-let scheduled = false;
 
 function scheduleApplyRtl() {
   if (scheduled) {
@@ -87,7 +100,19 @@ function scheduleApplyRtl() {
   });
 }
 
-applyRtlToHebrewMessages();
+chrome.storage.sync.get({ [STORAGE_KEY]: true }, (result) => {
+  isEnabled = Boolean(result[STORAGE_KEY]);
+  applyRtlToHebrewMessages();
+});
+
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName !== "sync" || !changes[STORAGE_KEY]) {
+    return;
+  }
+
+  isEnabled = Boolean(changes[STORAGE_KEY].newValue);
+  applyRtlToHebrewMessages();
+});
 
 const observer = new MutationObserver(() => {
   scheduleApplyRtl();

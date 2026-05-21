@@ -1,10 +1,10 @@
-html,
-body,
-button,
-textarea,
-input,
-select,
-[contenteditable="true"] {
+html.claude-rtl-helper-enabled,
+html.claude-rtl-helper-enabled body,
+html.claude-rtl-helper-enabled button,
+html.claude-rtl-helper-enabled textarea,
+html.claude-rtl-helper-enabled input,
+html.claude-rtl-helper-enabled select,
+html.claude-rtl-helper-enabled [contenteditable="true"] {
   font-family:
     "Assistant",
     "Rubik",
@@ -13,11 +13,11 @@ select,
     sans-serif !important;
 }
 
-.font-claude-response,
-.font-claude-response-body,
-[data-testid="user-message"],
-.standard-markdown,
-.progressive-markdown {
+html.claude-rtl-helper-enabled .font-claude-response,
+html.claude-rtl-helper-enabled .font-claude-response-body,
+html.claude-rtl-helper-enabled [data-testid="user-message"],
+html.claude-rtl-helper-enabled .standard-markdown,
+html.claude-rtl-helper-enabled .progressive-markdown {
   font-family:
     "Assistant",
     "Rubik",
@@ -27,18 +27,18 @@ select,
   letter-spacing: -0.01em;
 }
 
-.claude-rtl-helper-text {
+html.claude-rtl-helper-enabled .claude-rtl-helper-text {
   direction: rtl !important;
   text-align: right !important;
   unicode-bidi: plaintext !important;
 }
 
-pre,
-code,
-.code-block__code,
-.code-block__code *,
-[class*="code-block"],
-[class*="code-block"] * {
+html.claude-rtl-helper-enabled pre,
+html.claude-rtl-helper-enabled code,
+html.claude-rtl-helper-enabled .code-block__code,
+html.claude-rtl-helper-enabled .code-block__code *,
+html.claude-rtl-helper-enabled [class*="code-block"],
+html.claude-rtl-helper-enabled [class*="code-block"] * {
   direction: ltr !important;
   text-align: left !important;
   unicode-bidi: normal !important;
