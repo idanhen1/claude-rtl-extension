@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Claude RTL Helper",
+  "name": "RTL Helper for Claude",
   "version": "0.1.0",
-  "description": "Small browser extension that improves Hebrew RTL display in Claude.",
+  "description": "Improves RTL text direction in Claude while keeping English and code blocks unchanged.",
   "permissions": [
     "storage"
   ],
