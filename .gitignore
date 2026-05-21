@@ -22,3 +22,5 @@ yarn-error.log*
 *.zip
 *.crx
 *.pem
+
+release/
