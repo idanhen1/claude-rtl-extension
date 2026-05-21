@@ -1,4 +1,4 @@
-const STORAGE_KEY = "claudeRtlEnabled";
+﻿const STORAGE_KEY = "claudeRtlEnabled";
 
 const toggle = document.getElementById("rtlToggle");
 const statusText = document.getElementById("statusText");
@@ -6,8 +6,8 @@ const statusDot = document.getElementById("statusDot");
 
 function updateStatus(isEnabled) {
   statusText.textContent = isEnabled
-    ? "RTL פעיל עכשיו ב-Claude"
-    : "RTL כבוי עכשיו";
+    ? "RTL Helper is active on Claude"
+    : "RTL Helper is disabled";
 
   statusDot.classList.toggle("off", !isEnabled);
 }

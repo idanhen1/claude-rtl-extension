@@ -1,8 +1,8 @@
-<!doctype html>
-<html lang="he" dir="rtl">
+﻿<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Claude RTL</title>
+    <title>RTL Helper for Claude</title>
     <link rel="stylesheet" href="./popup.css" />
   </head>
   <body>
@@ -10,19 +10,19 @@
       <section class="hero">
         <div class="brandIcon">RTL</div>
         <div>
-          <h1>Claude RTL</h1>
-          <p>עברית מסודרת בלי לשבור את Claude</p>
+          <h1>RTL Helper for Claude</h1>
+          <p>Fix RTL text in Claude without breaking English or code.</p>
         </div>
       </section>
 
       <section class="panel">
         <div class="settingHeader">
           <div>
-            <h2>כיוון טקסט חכם</h2>
-            <p>עברית מקבלת RTL, אנגלית וקוד נשארים LTR</p>
+            <h2>Smart text direction</h2>
+            <p>RTL languages get RTL. English and code stay LTR.</p>
           </div>
 
-          <label class="switch" aria-label="הפעלת RTL">
+          <label class="switch" aria-label="Enable RTL helper">
             <input id="rtlToggle" type="checkbox" />
             <span class="track">
               <span class="thumb"></span>
@@ -32,13 +32,13 @@
 
         <div class="statusBox">
           <span id="statusDot" class="dot"></span>
-          <span id="statusText">טוען מצב...</span>
+          <span id="statusText">Loading status...</span>
         </div>
       </section>
 
       <section class="rules">
         <div class="rule">
-          <span>עברית</span>
+          <span>RTL text</span>
           <strong>RTL</strong>
         </div>
         <div class="rule">
