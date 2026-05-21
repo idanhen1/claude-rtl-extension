@@ -1,28 +1,44 @@
-# Claude RTL Extension
+# RTL Helper for Claude
 
-A lightweight Chrome extension for Claude that applies RTL direction to Hebrew messages while keeping English text and code blocks unchanged.
+A lightweight Chrome extension that improves Hebrew RTL text direction in Claude while keeping English text and code blocks unchanged.
 
 ## What it does
 
 - Detects Hebrew text inside Claude messages
-- Applies RTL only to message text that contains Hebrew
+- Applies RTL direction only to message text that contains Hebrew
 - Keeps English messages unchanged
 - Keeps code blocks LTR
 - Does not move message bubbles
 - Does not change Claude page layout
+- Includes an enable/disable toggle from the extension popup
+- Applies cleaner typography while the extension is enabled
+
+## Current language support
+
+This extension currently focuses on Hebrew.
+
+The same direction problem can appear in other right-to-left languages. Future versions may expand support to additional RTL languages such as Arabic, Persian/Farsi, and Urdu.
+
+## Supported site
+
+https://claude.ai/
 
 ## Local installation
 
-1. Open Chrome
-2. Go to chrome://extensions
-3. Enable Developer mode
-4. Click Load unpacked
-5. Select this project folder
-6. Open https://claude.ai
+1. Open Chrome.
+2. Go to chrome://extensions.
+3. Enable Developer mode.
+4. Click Load unpacked.
+5. Select this project folder.
+6. Open or refresh https://claude.ai/.
 
 ## Development
 
-After changing files, reload the extension in chrome://extensions and refresh Claude.
+After changing files:
+
+1. Go to chrome://extensions.
+2. Click the reload icon on the extension card.
+3. Refresh Claude with Ctrl + R.
 
 ## Extension icons
 
@@ -38,3 +54,13 @@ assets/icons/icon48.png
 assets/icons/icon128.png
 
 These icons are referenced from manifest.json for both the extension listing and the Chrome toolbar action.
+
+## Notes
+
+This extension intentionally changes only text direction, alignment, and typography while enabled.
+
+It should not change the position of messages, bubbles, page layout, or Claude UI containers.
+
+Code blocks are always kept LTR.
+
+This is an independent helper extension and is not affiliated with Anthropic or Claude.
