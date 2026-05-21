@@ -1,12 +1,52 @@
+html,
+body,
+button,
+textarea,
+input,
+select,
+[contenteditable="true"] {
+  font-family:
+    "Assistant",
+    "Rubik",
+    "Segoe UI",
+    Arial,
+    sans-serif !important;
+}
+
+.font-claude-response,
+.font-claude-response-body,
+[data-testid="user-message"],
+.standard-markdown,
+.progressive-markdown {
+  font-family:
+    "Assistant",
+    "Rubik",
+    "Segoe UI",
+    Arial,
+    sans-serif !important;
+  letter-spacing: -0.01em;
+}
+
 .claude-rtl-helper-text {
   direction: rtl !important;
   text-align: right !important;
   unicode-bidi: plaintext !important;
 }
 
+pre,
+code,
 .code-block__code,
-.code-block__code * {
+.code-block__code *,
+[class*="code-block"],
+[class*="code-block"] * {
   direction: ltr !important;
   text-align: left !important;
   unicode-bidi: normal !important;
+  font-family:
+    "Cascadia Code",
+    "JetBrains Mono",
+    "Fira Code",
+    Consolas,
+    monospace !important;
+  letter-spacing: 0 !important;
 }

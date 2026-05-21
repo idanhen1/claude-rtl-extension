@@ -2,13 +2,55 @@
 <html lang="he" dir="rtl">
   <head>
     <meta charset="UTF-8" />
-    <title>Claude RTL Helper</title>
+    <title>Claude RTL</title>
     <link rel="stylesheet" href="./popup.css" />
   </head>
   <body>
-    <h1>Claude RTL Helper</h1>
-    <p>התוסף פעיל באתר Claude.</p>
-    <button id="statusButton">בדיקה</button>
+    <main class="app">
+      <section class="hero">
+        <div class="brandIcon">RTL</div>
+        <div>
+          <h1>Claude RTL</h1>
+          <p>עברית מסודרת בלי לשבור את Claude</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="settingHeader">
+          <div>
+            <h2>כיוון טקסט חכם</h2>
+            <p>עברית מקבלת RTL, אנגלית וקוד נשארים LTR</p>
+          </div>
+
+          <label class="switch" aria-label="הפעלת RTL">
+            <input id="rtlToggle" type="checkbox" />
+            <span class="track">
+              <span class="thumb"></span>
+            </span>
+          </label>
+        </div>
+
+        <div class="statusBox">
+          <span id="statusDot" class="dot"></span>
+          <span id="statusText">טוען מצב...</span>
+        </div>
+      </section>
+
+      <section class="rules">
+        <div class="rule">
+          <span>עברית</span>
+          <strong>RTL</strong>
+        </div>
+        <div class="rule">
+          <span>English</span>
+          <strong>LTR</strong>
+        </div>
+        <div class="rule">
+          <span>Code</span>
+          <strong>LTR</strong>
+        </div>
+      </section>
+    </main>
 
     <script src="./popup.js"></script>
   </body>
