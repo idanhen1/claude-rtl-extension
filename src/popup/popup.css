@@ -122,7 +122,7 @@ h2 {
 .thumb {
   position: absolute;
   top: 4px;
-  right: 4px;
+  left: 4px;
   width: 22px;
   height: 22px;
   border-radius: 999px;
@@ -137,7 +137,7 @@ h2 {
 }
 
 .switch input:checked + .track .thumb {
-  transform: translateX(-26px);
+  transform: translateX(26px);
 }
 
 .statusBox {
@@ -192,3 +192,4 @@ h2 {
   color: var(--text);
   font-size: 12px;
 }
+
