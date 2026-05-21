@@ -1,4 +1,6 @@
-const HEBREW_RE = /[\u0590-\u05FF]/;
+﻿const RTL_RE =
+  /[\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF\u{10800}-\u{10FFF}\u{1E800}-\u{1E95F}\u{1EE00}-\u{1EEFF}]/u;
+
 const STORAGE_KEY = "claudeRtlEnabled";
 const ENABLED_CLASS = "claude-rtl-helper-enabled";
 const RTL_TEXT_CLASS = "claude-rtl-helper-text";
@@ -33,8 +35,8 @@ const MESSAGE_TEXT_SELECTORS = [
 let isEnabled = true;
 let scheduled = false;
 
-function hasHebrew(text) {
-  return HEBREW_RE.test(text || "");
+function hasRtlText(text) {
+  return RTL_RE.test(text || "");
 }
 
 function getElementText(element) {
@@ -67,9 +69,11 @@ function clearManagedElement(element) {
 }
 
 function removeRtlHandling() {
-  document.querySelectorAll("." + RTL_TEXT_CLASS + ", [" + MANAGED_ATTR + '="true"]').forEach((element) => {
-    clearManagedElement(element);
-  });
+  document
+    .querySelectorAll("." + RTL_TEXT_CLASS + ", [" + MANAGED_ATTR + '="true"]')
+    .forEach((element) => {
+      clearManagedElement(element);
+    });
 }
 
 function applyDirectionToElement(element) {
@@ -83,14 +87,14 @@ function applyDirectionToElement(element) {
     return;
   }
 
-  if (hasHebrew(getElementText(element))) {
+  if (hasRtlText(getElementText(element))) {
     element.classList.add(RTL_TEXT_CLASS);
     element.setAttribute("dir", "rtl");
     element.setAttribute(MANAGED_ATTR, "true");
   }
 }
 
-function applyRtlToHebrewMessages() {
+function applyRtlToMessages() {
   setGlobalEnabledState(isEnabled);
 
   if (!isEnabled) {
@@ -112,13 +116,13 @@ function scheduleApplyRtl() {
 
   window.requestAnimationFrame(() => {
     scheduled = false;
-    applyRtlToHebrewMessages();
+    applyRtlToMessages();
   });
 }
 
 chrome.storage.sync.get({ [STORAGE_KEY]: true }, (result) => {
   isEnabled = Boolean(result[STORAGE_KEY]);
-  applyRtlToHebrewMessages();
+  applyRtlToMessages();
 });
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
@@ -127,7 +131,7 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
   }
 
   isEnabled = Boolean(changes[STORAGE_KEY].newValue);
-  applyRtlToHebrewMessages();
+  applyRtlToMessages();
 });
 
 const observer = new MutationObserver(() => {

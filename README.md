@@ -1,11 +1,11 @@
-# RTL Helper for Claude
+﻿# RTL Helper for Claude
 
-A lightweight Chrome extension that improves Hebrew RTL text direction in Claude while keeping English text and code blocks unchanged.
+A lightweight Chrome extension that improves right-to-left text direction in Claude while keeping English text and code blocks unchanged.
 
 ## What it does
 
-- Detects Hebrew text inside Claude messages
-- Applies RTL direction only to message text that contains Hebrew
+- Detects RTL text inside Claude messages
+- Applies RTL direction only to message text that contains RTL characters
 - Keeps English messages unchanged
 - Keeps code blocks LTR
 - Does not move message bubbles
@@ -13,11 +13,9 @@ A lightweight Chrome extension that improves Hebrew RTL text direction in Claude
 - Includes an enable/disable toggle from the extension popup
 - Applies cleaner typography while the extension is enabled
 
-## Current language support
+## Language support
 
-This extension currently focuses on Hebrew.
-
-The same direction problem can appear in other right-to-left languages. Future versions may expand support to additional RTL languages such as Arabic, Persian/Farsi, and Urdu.
+The extension detects common right-to-left scripts, including Hebrew, Arabic, Persian/Farsi, Urdu, Syriac, Thaana, NKo, Samaritan, Mandaic, Adlam, and additional RTL Unicode ranges.
 
 ## Supported site
 
