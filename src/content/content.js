@@ -2,10 +2,13 @@ const HEBREW_RE = /[\u0590-\u05FF]/;
 const STORAGE_KEY = "claudeRtlEnabled";
 const ENABLED_CLASS = "claude-rtl-helper-enabled";
 const RTL_TEXT_CLASS = "claude-rtl-helper-text";
+const MANAGED_ATTR = "data-claude-rtl-managed";
 
 const MESSAGE_TEXT_SELECTORS = [
   '[data-testid="user-message"]',
   '[data-testid="user-message"] p',
+  '[data-testid="user-message"] li',
+  '[data-testid="user-message"] blockquote',
   '.standard-markdown p',
   '.standard-markdown li',
   '.standard-markdown blockquote',
@@ -44,18 +47,29 @@ function getElementText(element) {
 
 function shouldSkipElement(element) {
   return Boolean(
-    element.closest('pre, code, svg, button, nav, header, aside, .code-block__code, [class*="code-block"]')
+    element.closest(
+      'pre, code, svg, button, nav, header, aside, .code-block__code, [class*="code-block"]'
+    )
   );
-}
-
-function removeRtlClasses() {
-  document.querySelectorAll("." + RTL_TEXT_CLASS).forEach((element) => {
-    element.classList.remove(RTL_TEXT_CLASS);
-  });
 }
 
 function setGlobalEnabledState(enabled) {
   document.documentElement.classList.toggle(ENABLED_CLASS, enabled);
+}
+
+function clearManagedElement(element) {
+  element.classList.remove(RTL_TEXT_CLASS);
+
+  if (element.getAttribute(MANAGED_ATTR) === "true") {
+    element.removeAttribute("dir");
+    element.removeAttribute(MANAGED_ATTR);
+  }
+}
+
+function removeRtlHandling() {
+  document.querySelectorAll("." + RTL_TEXT_CLASS + ", [" + MANAGED_ATTR + '="true"]').forEach((element) => {
+    clearManagedElement(element);
+  });
 }
 
 function applyDirectionToElement(element) {
@@ -63,7 +77,7 @@ function applyDirectionToElement(element) {
     return;
   }
 
-  element.classList.remove(RTL_TEXT_CLASS);
+  clearManagedElement(element);
 
   if (!isEnabled) {
     return;
@@ -71,6 +85,8 @@ function applyDirectionToElement(element) {
 
   if (hasHebrew(getElementText(element))) {
     element.classList.add(RTL_TEXT_CLASS);
+    element.setAttribute("dir", "rtl");
+    element.setAttribute(MANAGED_ATTR, "true");
   }
 }
 
@@ -78,7 +94,7 @@ function applyRtlToHebrewMessages() {
   setGlobalEnabledState(isEnabled);
 
   if (!isEnabled) {
-    removeRtlClasses();
+    removeRtlHandling();
     return;
   }
 

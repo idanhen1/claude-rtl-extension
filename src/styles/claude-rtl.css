@@ -27,10 +27,11 @@ html.claude-rtl-helper-enabled .progressive-markdown {
   letter-spacing: -0.01em;
 }
 
-html.claude-rtl-helper-enabled .claude-rtl-helper-text {
+html.claude-rtl-helper-enabled .claude-rtl-helper-text,
+html.claude-rtl-helper-enabled [data-claude-rtl-managed="true"] {
   direction: rtl !important;
   text-align: right !important;
-  unicode-bidi: isolate !important;
+  unicode-bidi: embed !important;
 }
 
 html.claude-rtl-helper-enabled pre,
