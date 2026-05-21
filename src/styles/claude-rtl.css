@@ -3,3 +3,10 @@
   text-align: right !important;
   unicode-bidi: plaintext !important;
 }
+
+.code-block__code,
+.code-block__code * {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: normal !important;
+}

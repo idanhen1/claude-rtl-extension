@@ -44,7 +44,9 @@ function getElementText(element) {
 
 function shouldSkipElement(element) {
   return Boolean(
-    element.closest("pre, code, svg, button, nav, header, aside")
+    element.closest(
+      'pre, code, svg, button, nav, header, aside, .code-block__code'
+    )
   );
 }
 
