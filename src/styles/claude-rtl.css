@@ -30,7 +30,7 @@ html.claude-rtl-helper-enabled .progressive-markdown {
 html.claude-rtl-helper-enabled .claude-rtl-helper-text {
   direction: rtl !important;
   text-align: right !important;
-  unicode-bidi: plaintext !important;
+  unicode-bidi: isolate !important;
 }
 
 html.claude-rtl-helper-enabled pre,
