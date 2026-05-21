@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Claude RTL Helper",
+  "version": "0.1.0",
+  "description": "Small browser extension that improves Hebrew RTL display in Claude.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://claude.ai/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": ["src/content/content.js"],
+      "css": ["src/styles/claude-rtl.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Claude RTL Helper",
+    "default_popup": "src/popup/popup.html"
+  }
+}

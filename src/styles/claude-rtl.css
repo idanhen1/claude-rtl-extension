@@ -1,0 +1,5 @@
+.claude-rtl-helper {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: plaintext;
+}
