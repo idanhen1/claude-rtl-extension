@@ -23,3 +23,18 @@ A lightweight Chrome extension for Claude that applies RTL direction to Hebrew m
 ## Development
 
 After changing files, reload the extension in chrome://extensions and refresh Claude.
+
+## Extension icons
+
+The extension uses generated PNG icons from:
+
+assets/icons/logo-source.png
+
+Generated Chrome icon sizes:
+
+assets/icons/icon16.png
+assets/icons/icon32.png
+assets/icons/icon48.png
+assets/icons/icon128.png
+
+These icons are referenced from manifest.json for both the extension listing and the Chrome toolbar action.
