@@ -6,7 +6,7 @@ const statusDot = document.getElementById("statusDot");
 
 function updateStatus(isEnabled) {
   statusText.textContent = isEnabled
-    ? "RTL Helper is active on Claude"
+    ? "RTL Helper is active"
     : "RTL Helper is disabled";
 
   statusDot.classList.toggle("off", !isEnabled);

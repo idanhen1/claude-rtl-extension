@@ -31,7 +31,7 @@ html.claude-rtl-helper-enabled .claude-rtl-helper-text,
 html.claude-rtl-helper-enabled [data-claude-rtl-managed="true"] {
   direction: rtl !important;
   text-align: right !important;
-  unicode-bidi: embed !important;
+unicode-bidi: isolate !important;
 }
 
 html.claude-rtl-helper-enabled pre,

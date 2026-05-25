@@ -1,18 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "RTL Helper for Claude",
+  "name": "RTL Helper",
   "version": "0.1.0",
-  "description": "Improves RTL text direction in Claude while keeping English and code blocks unchanged.",
+  "description": "Improves RTL text direction in Claude and NotebookLM while keeping English and code blocks unchanged.",
   "permissions": [
     "storage"
   ],
   "host_permissions": [
-    "https://claude.ai/*"
+    "https://claude.ai/*",
+    "https://notebooklm.google.com/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://claude.ai/*"
+        "https://claude.ai/*",
+        "https://notebooklm.google.com/*"
       ],
       "js": [
         "src/content/content.js"
@@ -24,7 +26,7 @@
     }
   ],
   "action": {
-    "default_title": "Claude RTL Helper",
+    "default_title": "RTL Helper",
     "default_popup": "src/popup/popup.html",
     "default_icon": {
       "16": "assets/icons/icon16.png",

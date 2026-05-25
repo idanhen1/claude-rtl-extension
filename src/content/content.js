@@ -1,5 +1,4 @@
-﻿const RTL_RE =
-  /[\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF\u{10800}-\u{10FFF}\u{1E800}-\u{1E95F}\u{1EE00}-\u{1EEFF}]/u;
+﻿const RTL_RE = /[\u0590-\u05FF]/u;
 
 const STORAGE_KEY = "claudeRtlEnabled";
 const ENABLED_CLASS = "claude-rtl-helper-enabled";
@@ -11,6 +10,7 @@ const MESSAGE_TEXT_SELECTORS = [
   '[data-testid="user-message"] p',
   '[data-testid="user-message"] li',
   '[data-testid="user-message"] blockquote',
+
   '.standard-markdown p',
   '.standard-markdown li',
   '.standard-markdown blockquote',
@@ -20,6 +20,7 @@ const MESSAGE_TEXT_SELECTORS = [
   '.standard-markdown h4',
   '.standard-markdown h5',
   '.standard-markdown h6',
+
   '.progressive-markdown p',
   '.progressive-markdown li',
   '.progressive-markdown blockquote',
@@ -29,7 +30,46 @@ const MESSAGE_TEXT_SELECTORS = [
   '.progressive-markdown h4',
   '.progressive-markdown h5',
   '.progressive-markdown h6',
-  'textarea'
+
+  '.md3-body-text',
+  '.md3-body-text p',
+  '.md3-body-text li',
+
+  '.message-text-content',
+  '.message-text-content .paragraph',
+  '.message-text-content li.paragraph',
+  '.message-text-content ul',
+  '.message-text-content ol',
+
+  '.artifact-library-container',
+  '.artifact-item-button',
+  '.artifact-primary-content',
+  '.artifact-labels',
+  '.artifact-title',
+  '.title-container',
+
+  'artifact-viewer',
+  '.artifact-viewer-container',
+  '.artifact-content',
+  '.artifact-content-scrollable',
+
+  'report-viewer',
+  'labs-tailwind-doc-viewer',
+  'element-list-renderer',
+  'labs-tailwind-structural-element-view-v2',
+  'paragraph-element-view',
+  'table-element-view',
+
+  '.paragraph',
+  '.table-paragraph',
+  '.list-item',
+
+  'table',
+  'td',
+  'th',
+
+  'textarea',
+  '[contenteditable="true"]'
 ];
 
 let isEnabled = true;
@@ -65,6 +105,9 @@ function clearManagedElement(element) {
   if (element.getAttribute(MANAGED_ATTR) === "true") {
     element.removeAttribute("dir");
     element.removeAttribute(MANAGED_ATTR);
+    element.style.removeProperty("direction");
+    element.style.removeProperty("text-align");
+    element.style.removeProperty("unicode-bidi");
   }
 }
 
@@ -87,11 +130,19 @@ function applyDirectionToElement(element) {
     return;
   }
 
-  if (hasRtlText(getElementText(element))) {
-    element.classList.add(RTL_TEXT_CLASS);
-    element.setAttribute("dir", "rtl");
-    element.setAttribute(MANAGED_ATTR, "true");
+  const text = getElementText(element);
+
+  if (!hasRtlText(text)) {
+    return;
   }
+
+  element.classList.add(RTL_TEXT_CLASS);
+  element.setAttribute("dir", "rtl");
+  element.setAttribute(MANAGED_ATTR, "true");
+
+  element.style.direction = "rtl";
+  element.style.textAlign = "right";
+  element.style.unicodeBidi = "isolate";
 }
 
 function applyRtlToMessages() {
